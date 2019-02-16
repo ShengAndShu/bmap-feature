@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>百度地图批量点测试</title>
+    <style type="text/css">
+        html, body{
+            height:100%;
+            margin:0 auto;
+        }
+        #mymap{
+            height:100%;
+        }
+    </style>
+</head>
+<body>
+    <div id="mymap"></div>
+
+    <script src="http://api.map.baidu.com/api?v=2.0&ak=UdDFxjoncwyDUp0E8eqQQ8EjwUFI0UEQ"></script>
+    <script src="js/data.js"></script>
+    <script src="js/overlay.js"></script>
+    <script>
+
+        var map = new BMap.Map('mymap');
+        map.centerAndZoom(new BMap.Point(117.23374, 31.82779), 16);
+        map.enableScrollWheelZoom();
+
+        if (document.createElement('canvas').getContext) {
+            var myOverlay = new CustomOverlay({
+                click: function(e){
+                    var marker = e.marker;
+                    alert('该点的mos值为' + marker.data.mos);
+                }
+            });
+            map.addOverlay(myOverlay);
+            // 先添加到地图上，才能设置点
+            myOverlay.setPoints(data);
+        }
+    </script>
+</body>
+</html>
